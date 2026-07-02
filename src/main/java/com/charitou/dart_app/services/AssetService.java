@@ -33,6 +33,16 @@ public class AssetService {
         return repository.save(asset);
     }
 
+    @Transactional
+    public void deleteAsset(UUID assetId) {
+        Asset asset = repository.findById(assetId)
+                .orElseThrow(() -> new RuntimeException("Asset not found"));
+
+        asset.getCapabilities().clear();
+
+        repository.delete(asset);
+    }
+
     public Page<Asset> getaAllAssets(Pageable pageable) {
         return repository.findAll(pageable);
     }

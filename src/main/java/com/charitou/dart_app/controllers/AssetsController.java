@@ -28,6 +28,12 @@ public class AssetsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removeAsset(@PathVariable UUID id) {
+        service.deleteAsset(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping
     public  ResponseEntity<Page<Asset>> getAll(@PageableDefault(size=20, sort = "title") Pageable pageable){
         Page<Asset> all_assets = service.getaAllAssets(pageable);
